@@ -20,6 +20,7 @@ import (
 	_ "embed"
 	"encoding/json"
 	"fmt"
+	"math"
 	"regexp"
 
 	"github.com/samber/lo"
@@ -135,7 +136,7 @@ func setDefaultOptions(opts InstanceTypeOptions) InstanceTypeOptions {
 
 	// make sure all the instance types are available
 	for i := range opts.Offerings {
-		opts.Offerings[i].Available = true
+		opts.Offerings[i].Available = math.MaxInt
 	}
 
 	return opts

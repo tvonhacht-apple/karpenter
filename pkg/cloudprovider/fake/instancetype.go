@@ -18,6 +18,7 @@ package fake
 
 import (
 	"fmt"
+	"math"
 	"strings"
 
 	"github.com/samber/lo"
@@ -68,23 +69,23 @@ func NewInstanceTypeWithCustomRequirement(options InstanceTypeOptions, customReq
 			{Requirements: scheduling.NewLabelRequirements(map[string]string{
 				v1.CapacityTypeLabelKey:  "spot",
 				corev1.LabelTopologyZone: "test-zone-1",
-			}), Price: PriceFromResources(options.Resources), Available: true},
+			}), Price: PriceFromResources(options.Resources), Available: math.MaxInt},
 			{Requirements: scheduling.NewLabelRequirements(map[string]string{
 				v1.CapacityTypeLabelKey:  "spot",
 				corev1.LabelTopologyZone: "test-zone-2",
-			}), Price: PriceFromResources(options.Resources), Available: true},
+			}), Price: PriceFromResources(options.Resources), Available: math.MaxInt},
 			{Requirements: scheduling.NewLabelRequirements(map[string]string{
 				v1.CapacityTypeLabelKey:  "on-demand",
 				corev1.LabelTopologyZone: "test-zone-1",
-			}), Price: PriceFromResources(options.Resources), Available: true},
+			}), Price: PriceFromResources(options.Resources), Available: math.MaxInt},
 			{Requirements: scheduling.NewLabelRequirements(map[string]string{
 				v1.CapacityTypeLabelKey:  "on-demand",
 				corev1.LabelTopologyZone: "test-zone-2",
-			}), Price: PriceFromResources(options.Resources), Available: true},
+			}), Price: PriceFromResources(options.Resources), Available: math.MaxInt},
 			{Requirements: scheduling.NewLabelRequirements(map[string]string{
 				v1.CapacityTypeLabelKey:  "on-demand",
 				corev1.LabelTopologyZone: "test-zone-3",
-			}), Price: PriceFromResources(options.Resources), Available: true},
+			}), Price: PriceFromResources(options.Resources), Available: math.MaxInt},
 		}
 	}
 	if len(options.Architecture) == 0 {
@@ -158,7 +159,7 @@ func InstanceTypesAssorted() []*cloudprovider.InstanceType {
 										corev1.LabelTopologyZone: zone,
 									}),
 									Price:     price,
-									Available: true,
+									Available: math.MaxInt,
 								},
 							}
 							instanceTypes = append(instanceTypes, NewInstanceType(opts))

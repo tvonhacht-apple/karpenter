@@ -19,6 +19,7 @@ package disruption_test
 import (
 	"context"
 	"fmt"
+	"math"
 	"sort"
 	"sync"
 	"testing"
@@ -472,7 +473,7 @@ var _ = Describe("Disruption Taints", func() {
 				{
 					Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}),
 					Price:        1.5,
-					Available:    false,
+					Available:    0,
 				},
 			},
 		})
@@ -482,17 +483,17 @@ var _ = Describe("Disruption Taints", func() {
 				{
 					Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1a"}),
 					Price:        1.0,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 				{
 					Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1b"}),
 					Price:        0.2,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 				{
 					Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1c"}),
 					Price:        0.4,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			},
 		})

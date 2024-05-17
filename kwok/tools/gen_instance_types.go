@@ -19,6 +19,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"os"
 
 	"github.com/samber/lo"
@@ -99,7 +100,7 @@ func constructGenericInstanceTypes() []kwok.InstanceTypeOptions {
 								},
 								Offering: cloudprovider.Offering{
 									Price:     lo.Ternary(ct == v1.CapacityTypeSpot, price*.7, price),
-									Available: true,
+									Available: math.MaxInt,
 								},
 							})
 						}

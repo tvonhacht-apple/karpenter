@@ -19,6 +19,7 @@ package provisioning_test
 import (
 	"context"
 	"fmt"
+	"math"
 	"testing"
 	"time"
 
@@ -2000,7 +2001,7 @@ func AddInstanceResources(instanceTypes []*cloudprovider.InstanceType, resources
 				corev1.LabelTopologyZone: "test-zone-1",
 			}),
 			Price:     price,
-			Available: true,
+			Available: math.MaxInt,
 		},
 	}
 

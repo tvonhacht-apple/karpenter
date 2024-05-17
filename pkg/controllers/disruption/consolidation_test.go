@@ -18,6 +18,7 @@ package disruption_test
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 	"sort"
 	"strings"
@@ -2013,7 +2014,7 @@ var _ = Describe("Consolidation", func() {
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}),
 						Price:        0.5,
-						Available:    false,
+						Available:    0,
 					},
 				},
 			})
@@ -2023,17 +2024,17 @@ var _ = Describe("Consolidation", func() {
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1a"}),
 						Price:        1.0,
-						Available:    true,
+						Available:    math.MaxInt,
 					},
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1b"}),
 						Price:        0.2,
-						Available:    true,
+						Available:    math.MaxInt,
 					},
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1c"}),
 						Price:        0.4,
-						Available:    true,
+						Available:    math.MaxInt,
 					},
 				},
 			})
@@ -2097,7 +2098,7 @@ var _ = Describe("Consolidation", func() {
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}),
 						Price:        0.5,
-						Available:    false,
+						Available:    0,
 					},
 				},
 			})
@@ -2107,22 +2108,22 @@ var _ = Describe("Consolidation", func() {
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}),
 						Price:        0.6,
-						Available:    true,
+						Available:    math.MaxInt,
 					},
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1b"}),
 						Price:        0.6,
-						Available:    true,
+						Available:    math.MaxInt,
 					},
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1b"}),
 						Price:        0.2,
-						Available:    true,
+						Available:    math.MaxInt,
 					},
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1c"}),
 						Price:        0.3,
-						Available:    true,
+						Available:    math.MaxInt,
 					},
 				},
 			})

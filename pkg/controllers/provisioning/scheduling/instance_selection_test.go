@@ -18,6 +18,7 @@ package scheduling_test
 
 import (
 	"fmt"
+	"math"
 	"math/rand"
 
 	"github.com/mitchellh/hashstructure/v2"
@@ -608,8 +609,8 @@ var _ = Describe("Instance Type Selection", func() {
 					corev1.ResourceMemory: resource.MustParse("1Gi"),
 				},
 				Offerings: []cloudprovider.Offering{
-					{Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}), Price: 1.0, Available: true},
-					{Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1a"}), Price: 0.2, Available: true},
+					{Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}), Price: 1.0, Available: math.MaxInt},
+					{Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1a"}), Price: 0.2, Available: math.MaxInt},
 				},
 			}),
 			fake.NewInstanceType(fake.InstanceTypeOptions{
@@ -621,8 +622,8 @@ var _ = Describe("Instance Type Selection", func() {
 					corev1.ResourceMemory: resource.MustParse("1Gi"),
 				},
 				Offerings: []cloudprovider.Offering{
-					{Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}), Price: 1.3, Available: true},
-					{Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1a"}), Price: 0.1, Available: true},
+					{Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}), Price: 1.3, Available: math.MaxInt},
+					{Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1a"}), Price: 0.1, Available: math.MaxInt},
 				},
 			}),
 		}
@@ -659,7 +660,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        0.52,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts2 := fake.InstanceTypeOptions{
@@ -675,7 +676,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.0,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			instanceTypes = append(instanceTypes, fake.NewInstanceType(opts1))
@@ -737,7 +738,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        0.52,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts2 := fake.InstanceTypeOptions{
@@ -753,7 +754,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.0,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts3 := fake.InstanceTypeOptions{
@@ -769,7 +770,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.2,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 
@@ -833,7 +834,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        0.52,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts2 := fake.InstanceTypeOptions{
@@ -849,7 +850,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.0,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			instanceTypes = append(instanceTypes, fake.NewInstanceTypeWithCustomRequirement(opts1, scheduler.NewRequirement(instanceGeneration, corev1.NodeSelectorOpIn, "2")))
@@ -909,7 +910,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        0.52,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts2 := fake.InstanceTypeOptions{
@@ -925,7 +926,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.0,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts3 := fake.InstanceTypeOptions{
@@ -941,7 +942,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.2,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			instanceTypes = append(instanceTypes, fake.NewInstanceTypeWithCustomRequirement(opts1, scheduler.NewRequirement(instanceGeneration, corev1.NodeSelectorOpIn, "2")))
@@ -1004,7 +1005,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        0.52,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts2 := fake.InstanceTypeOptions{
@@ -1020,7 +1021,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.2,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			instanceTypes = append(instanceTypes, fake.NewInstanceTypeWithCustomRequirement(opts1, scheduler.NewRequirement(instanceGeneration, corev1.NodeSelectorOpIn, "2")))
@@ -1073,7 +1074,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        0.52,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts2 := fake.InstanceTypeOptions{
@@ -1089,7 +1090,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.0,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts3 := fake.InstanceTypeOptions{
@@ -1105,7 +1106,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.2,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			instanceTypes = append(instanceTypes, fake.NewInstanceType(opts1))
@@ -1175,7 +1176,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        0.52,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts2 := fake.InstanceTypeOptions{
@@ -1191,7 +1192,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.0,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts3 := fake.InstanceTypeOptions{
@@ -1207,7 +1208,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.2,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts4 := fake.InstanceTypeOptions{
@@ -1223,7 +1224,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.2,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			instanceTypes = append(instanceTypes, fake.NewInstanceTypeWithCustomRequirement(opts1, scheduler.NewRequirement(instanceGeneration, corev1.NodeSelectorOpIn, "2")))
@@ -1321,7 +1322,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        0.52,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts2 := fake.InstanceTypeOptions{
@@ -1337,7 +1338,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.0,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			instanceTypes = append(instanceTypes, fake.NewInstanceType(opts1))
@@ -1396,7 +1397,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        0.52,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts2 := fake.InstanceTypeOptions{
@@ -1412,7 +1413,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.0,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			instanceTypes = append(instanceTypes, fake.NewInstanceType(opts1))
@@ -1481,7 +1482,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        0.52,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			opts2 := fake.InstanceTypeOptions{
@@ -1497,7 +1498,7 @@ var _ = Describe("Instance Type Selection", func() {
 				{
 					Requirements: scheduler.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeSpot, corev1.LabelTopologyZone: "test-zone-1-spot"}),
 					Price:        1.0,
-					Available:    true,
+					Available:    math.MaxInt,
 				},
 			}
 			instanceTypes = append(instanceTypes, fake.NewInstanceType(opts1))

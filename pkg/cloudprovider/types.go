@@ -235,7 +235,7 @@ type Offering struct {
 	Price        float64
 	// Available is added so that Offerings can return all offerings that have ever existed for an instance type,
 	// so we can get historical pricing data for calculating savings in consolidation
-	Available bool
+	Available int
 }
 
 type Offerings []Offering
@@ -243,7 +243,7 @@ type Offerings []Offering
 // Available filters the available offerings from the returned offerings
 func (ofs Offerings) Available() Offerings {
 	return lo.Filter(ofs, func(o Offering, _ int) bool {
-		return o.Available
+		return o.Available > 0
 	})
 }
 

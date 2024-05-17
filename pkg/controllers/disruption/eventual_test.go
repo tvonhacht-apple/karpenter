@@ -17,6 +17,7 @@ limitations under the License.
 package disruption_test
 
 import (
+	"math"
 	"sync"
 	"time"
 
@@ -808,7 +809,7 @@ var _ = Describe("Drift", func() {
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}),
 						Price:        0.5,
-						Available:    false,
+						Available:    0,
 					},
 				},
 			})
@@ -818,7 +819,7 @@ var _ = Describe("Drift", func() {
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}),
 						Price:        0.3,
-						Available:    true,
+						Available:    math.MaxInt,
 					},
 				},
 				Resources: map[corev1.ResourceName]resource.Quantity{corev1.ResourceCPU: resource.MustParse("3")},
@@ -1331,7 +1332,7 @@ var _ = Describe("Drift", func() {
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}),
 						Price:        0.5,
-						Available:    false,
+						Available:    0,
 					},
 				},
 			})
@@ -1341,7 +1342,7 @@ var _ = Describe("Drift", func() {
 					{
 						Requirements: scheduling.NewLabelRequirements(map[string]string{v1.CapacityTypeLabelKey: v1.CapacityTypeOnDemand, corev1.LabelTopologyZone: "test-zone-1a"}),
 						Price:        0.3,
-						Available:    true,
+						Available:    math.MaxInt,
 					},
 				},
 				Resources: map[corev1.ResourceName]resource.Quantity{corev1.ResourceCPU: resource.MustParse("3")},
